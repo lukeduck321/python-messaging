@@ -14,7 +14,7 @@ def send(server_ip, message):
         if message == "//es":
             pass
         else:
-            message = "luke: " + message
+            message = "ducky: " + message
         client_socket.send(message.encode())
         response = b""
         while True:
@@ -22,7 +22,7 @@ def send(server_ip, message):
             if not part:
                 break
             response += part
-        print("From server:", response.decode())
+        print("From server:\n", response.decode())
     except Exception as e:
         print("Send error:", e)
     finally:
