@@ -3,7 +3,7 @@ import threading
 
 host = "0.0.0.0"
 port = 12345
-server_ip = "192.168.1.135"
+server_ip = "192.168.8.112"
 message = ""
 
 def send(server_ip, message):
@@ -11,6 +11,10 @@ def send(server_ip, message):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         client_socket.connect((server_ip, port))
+        if message == "//es":
+            pass
+        else:
+            message = "luke: " + message
         client_socket.send(message.encode())
         response = b""
         while True:
