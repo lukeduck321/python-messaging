@@ -1,37 +1,19 @@
-import socket
-from time import sleep
+def send(server_ip, message):
+    port = 12345
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        client_socket.connect((server_ip, port))
+        client_socket.send(message.encode())
 
-host = "0.0.0.0"
-port = 12345
-message = ""
+        response = b""
+        while True:
+            part = client_socket.recv(1024)
+            if not part:
+                break
+            response += part
 
-def rec():
-    global message
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((host, port))
-    server_socket.listen()
-    print("Server listening on", host, port)
-
-    while True:
-        conn, addr = server_socket.accept()
-        print(addr, "connected")
-        data = conn.recv(1024)
-        if not data:
-            conn.close()
-            continue
-
-        message = data.decode()
-        print("Received:", message)
-
-        if message.strip() == "//es":
-            try:
-                with open("log.txt", "r") as f:
-                    file_data = f.read()
-                    conn.sendall(file_data.encode())
-            except FileNotFoundError:
-                conn.sendall(b"file not found")
-        else:
-            conn.sendall(b"message received")
-        conn.close()
-
-rec()
+        print("From server:", repr(response.decode()))
+    except Exception as e:
+        print("Error in send():", e)
+    finally:
+        client_socket.close()
