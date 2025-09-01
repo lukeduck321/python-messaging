@@ -67,8 +67,8 @@ while True:
 window.geometry("400x600+1520+480")
 
 #enrties
-ent1 = Entry(window, textvariable=guiout)
-ent1.place(x=0,y=560)
+e1 = Entry(window, textvariable=guiout)
+e1.place(x=0,y=560)
 #buttons
 
 #text
