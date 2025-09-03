@@ -5,12 +5,31 @@ from tkinter import *
 host = "0.0.0.0"
 port = 12345
 server_ip = "192.168.8.112"
-message = ""
+message = str()
 
 #gui setup
 window = Tk()
 guiout = StringVar()
 
+
+
+def click():
+    global message, guiout
+    messsage = guiout.get()
+    print(guiout.get())
+    #send(server_ip,message)
+    e1.delete(0,END)
+    send(server_ip,"//es")
+
+def enter(event):
+    click()
+
+def refreshtwo():
+    print("passed r")
+    #send(server_ip,"//es")
+
+def refresh(event):
+    refreshtwo()
 
 def send(server_ip, message):
     port = 12345
@@ -67,14 +86,19 @@ while True:
 window.geometry("400x600+1520+480")
 
 #enrties
-e1 = Entry(window, textvariable=guiout)
-e1.place(x=0,y=560)
+e1 = Entry(window, textvariable=guiout,width=50)
+e1.place(x=0,y=0)
 #buttons
-
+b1 = Button(window, text="send",height=1,width=5,command=click)
+b1.place(x=400,y=0)
+b2 = Button(window, text="refresh",height=1,width=5,command=refreshtwo)
+b2.place(x=480,y=0)
 #text
 
 #keybinds
-
+window.bind('<Return>',enter)
+window.bind('<r>',refresh)
+window.bind('<R>',refresh)
 
 window.mainloop()
 
