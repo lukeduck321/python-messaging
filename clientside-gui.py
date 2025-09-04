@@ -8,11 +8,12 @@ port = 12345
 server_ip = "10.125.116.216"
 message = "example \nnew line\nnew line\nnew line\nnew line"
 out = str()
+cwidth = str()
+cheight = str()
 
 #gui setup
 window = Tk()
 guiout = StringVar()
-l1 = Label(window, text=message)
 
 
 
@@ -28,9 +29,6 @@ def enter(event):
     click()
 
 def refreshtwo():
-    l1.destroy()
-    l1 = Label(window, text=message)
-    l1.grid(row = 0, column = 0,pady=25)
     print("refreshed")
     #send(server_ip,"//es")
 
@@ -62,6 +60,7 @@ def send(server_ip, message):
 
 def rec():
     global message
+    cheight = window.winfo_height()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen()
@@ -78,6 +77,13 @@ def rec():
             print("Received:", message)
             conn.send(b"message received")
         conn.close()
+
+def update_window():
+    global message,cwidth,cheight,c1
+    cwidth = window.winfo_width() - 15
+    c1 = Canvas(window, width=cwidth, height=cheight, bg="blue")
+    c1.place(x=0, y=15)
+    print(cwidth, cheight)
 
 # Run receiver in background
 threading.Thread(target=rec, daemon=True).start()
@@ -96,17 +102,18 @@ window.geometry("400x600+1520+480")
 
 #buttons
 b1 = Button(window, text="send",height=1,width=5,command=click)
-b1.grid(row = 4, column = 1,)
+b1.grid(row = 0, column = 1,)
 b2 = Button(window, text="refresh",height=1,width=5,command=refreshtwo)
-b2.grid(row = 4, column = 2)
+b2.grid(row = 0, column = 2)
 #text
-l1.grid(row = 0, column = 0,pady=25)
+#c1 = Canvas(window,width=cwidth,height=cheight,bg="blue")
+#c1.place(x=0,y=15)
 #enrties
 e1 = Entry(window, textvariable=guiout,width=50)
-e1.grid(row = 4, column = 0)
+e1.grid(row = 0, column = 0)
 #keybinds
 window.bind('<Return>',enter)
-window.bind('<r>',refresh)
-window.bind('<R>',refresh)
-
+#window.bind('<r>',refresh)
+#window.bind('<R>',refresh)
+window.after(100,update_window)
 window.mainloop()
