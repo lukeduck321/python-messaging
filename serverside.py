@@ -31,8 +31,15 @@ def rec():
             except FileNotFoundError:
                 conn.sendall(b"file not found")
         else:
-            with open("log.txt", "a") as f:
-                f.write("\n" + message)
+            try:
+                with open("log.txt", "r") as f:
+                        existing = f.read()
+            except FileNotFoundError:
+                    existing = ""
+                
+            with open("log.txt", "w") as f:
+                    f.write(message + "\n" + existing)
+                
             conn.sendall(b"message received")
 
         conn.close()
