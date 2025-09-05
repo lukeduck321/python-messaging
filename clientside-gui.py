@@ -4,7 +4,7 @@ from tkinter import *
 
 host = "0.0.0.0"
 port = 12345
-server_ip = "192.168.1.135"  # ✅ Replace with your actual server IP
+server_ip = "192.168.1.135"  #Replace with your actual server IP
 message = "example \nnew line\nnew line\nnew line\nnew line"
 out = str()
 cwidth = str()
