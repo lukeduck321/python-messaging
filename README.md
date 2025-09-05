@@ -3,7 +3,7 @@ download serverside.py to your server download log.txt or just make it yourself 
 $touch log.txt
 
 
-if your on linux get you local ip on the server
+get your your local ip on the server
 
 windows: ipconfig
 
