@@ -4,6 +4,7 @@ $touch log.txt
 
 
 if your on linux get you local ip on the server
+
 windows: ipconfig
 
 linux hostname -I
