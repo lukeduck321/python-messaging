@@ -2,48 +2,44 @@ import socket
 import threading
 from tkinter import *
 
-
 host = "0.0.0.0"
 port = 12345
-server_ip = "10.125.116.216"
+server_ip = "192.168.1.135"  # ✅ Replace with your actual server IP
 message = "example \nnew line\nnew line\nnew line\nnew line"
 out = str()
 cwidth = str()
 cheight = str()
+chat_log = "" 
 
-#gui setup
+
+# GUI setup
 window = Tk()
 guiout = StringVar()
 
-
-
 def click():
     global message, guiout
-    messsage = guiout.get()
-    print(guiout.get())
-    #send(server_ip,message)
-    e1.delete(0,END)
-    #send(server_ip,"//es")
-        
+    message = guiout.get() 
+    print("Sending:", message)
+    send(server_ip, message)  
+    e1.delete(0, END)
+
+
 def enter(event):
     click()
 
 def refreshtwo():
-    print("refreshed")
-    #send(server_ip,"//es")
-
+    print("Refreshed")
+    send(server_ip, "//es") 
 def refresh(event):
     refreshtwo()
 
 def send(server_ip, message):
-    global out
+    global out, chat_log
     port = 12345
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         client_socket.connect((server_ip, port))
-        if message == "//es":
-            pass
-        else:
+        if message != "//es":
             message = "Ducky: " + message
         client_socket.send(message.encode())
         response = b""
@@ -52,15 +48,18 @@ def send(server_ip, message):
             if not part:
                 break
             response += part
-        print("From server:\n", response.decode())
+        decoded = response.decode()
+        print("From server:\n", decoded)
+        if message.strip() == "//es" or message.strip() == "Ducky: //es":
+            chat_log = decoded
     except Exception as e:
         print("Send error:", e)
     finally:
         client_socket.close()
 
+
 def rec():
     global message
-    cheight = window.winfo_height()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen()
@@ -73,47 +72,39 @@ def rec():
             if not data:
                 break
             message = data.decode()
-            out =+ "\n" + data.decode()
             print("Received:", message)
             conn.send(b"message received")
         conn.close()
 
 def update_window():
-    global message,cwidth,cheight,c1
+    global message, cwidth, cheight, c1, chat_log
+    cheight = window.winfo_height() - 50
     cwidth = window.winfo_width() - 15
-    c1 = Canvas(window, width=cwidth, height=cheight, bg="blue")
-    c1.place(x=0, y=15)
-    print(cwidth, cheight)
+    c1 = Canvas(window, width=cwidth, height=cheight)
+    c1.place(x=0, y=30)
+    c1.create_text(5, 5, anchor="nw", text=chat_log, fill="black", font=("Courier", 10), width=cwidth - 10)
+    window.after(1000, update_window)
 
-# Run receiver in background
+# Start background receiver thread
 threading.Thread(target=rec, daemon=True).start()
 
-# Send establish signal
-"""send(server_ip, "//es")
-
-# Main loop
-while True:
-    message = input("Type message you want to send: ")
-    send(server_ip, message)
-"""
-
+# GUI layout
 window.geometry("400x600+1520+480")
 
+# Buttons
+b1 = Button(window, text="send", height=1, width=5, command=click)
+b1.grid(row=0, column=1)
 
-#buttons
-b1 = Button(window, text="send",height=1,width=5,command=click)
-b1.grid(row = 0, column = 1,)
-b2 = Button(window, text="refresh",height=1,width=5,command=refreshtwo)
-b2.grid(row = 0, column = 2)
-#text
-#c1 = Canvas(window,width=cwidth,height=cheight,bg="blue")
-#c1.place(x=0,y=15)
-#enrties
-e1 = Entry(window, textvariable=guiout,width=50)
-e1.grid(row = 0, column = 0)
-#keybinds
-window.bind('<Return>',enter)
-#window.bind('<r>',refresh)
-#window.bind('<R>',refresh)
-window.after(100,update_window)
+b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
+b2.grid(row=0, column=2)
+
+# Text entry
+e1 = Entry(window, textvariable=guiout, width=50)
+e1.grid(row=0, column=0)
+
+# Key bindings
+window.bind('<Return>', enter)
+
+# Initial GUI update
+window.after(100, update_window)
 window.mainloop()
