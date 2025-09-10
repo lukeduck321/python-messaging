@@ -1,10 +1,11 @@
 import socket
 import threading
 from tkinter import *
+import tkinter.ttk as ttk
 
 host = "0.0.0.0"
 port = 12345
-server_ip = "192.168.1.135"  #Replace with your actual server IP
+server_ip = "10.125.116.214"  #Replace with your actual server IP
 message = "example \nnew line\nnew line\nnew line\nnew line"
 out = str()
 cwidth = str()
@@ -15,6 +16,7 @@ chat_log = ""
 # GUI setup
 window = Tk()
 guiout = StringVar()
+
 
 def click():
     global message, guiout
@@ -28,8 +30,8 @@ def enter(event):
     click()
 
 def refreshtwo():
-    print("Refreshed")
     send(server_ip, "//es") 
+    print("Refreshed")
 def refresh(event):
     refreshtwo()
 
@@ -89,7 +91,7 @@ def update_window():
 threading.Thread(target=rec, daemon=True).start()
 
 # GUI layout
-window.geometry("400x600+1520+480")
+window.geometry("600x800+1520+480")
 
 # Buttons
 b1 = Button(window, text="send", height=1, width=5, command=click)
