@@ -1,7 +1,6 @@
 import socket
 import threading
 from tkinter import *
-import tkinter.ttk as ttk
 
 host = "0.0.0.0"
 port = 12345
