@@ -19,6 +19,11 @@ window = Tk()
 guiout = StringVar()
 window.geometry("600x800+1520+480")
 
+window.columnconfigure(0, weight=1)
+window.columnconfigure(1, weight=0)
+window.columnconfigure(2, weight=0)
+window.rowconfigure(0, weight=1)
+window.rowconfigure(1, weight=0)
 
 def click():
     global message, guiout
@@ -89,14 +94,14 @@ def update_window():
     if change_check != str(cwidth)+str(cheight):          
         # Buttons
         b1 = Button(window, text="send", height=1, width=5, command=click)
-        b1.grid(row=4, column=1)
-
-        b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
-        b2.grid(row=4, column=2)
+        b1.grid(row=1, column=1,padx=5,pady=5)
         
+        b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
+        b2.grid(row=1, column=2,padx=5,pady=5)
+                
         # Text entry
         e1 = Entry(window, textvariable=guiout, width=50)
-        e1.grid(row=4, column=0, pady=cheight)
+        e1.grid(row=1, column=0, sticky="ew",padx=5,pady=5)
         
     else:
         pass
@@ -108,6 +113,15 @@ def update_window():
     c1.create_text(5, 5, anchor="nw", text=chat_log, fill="black", font=("Courier", 10), width=cwidth - 10)
     window.after(1000, update_window)
 
+b1 = Button(window, text="send", height=1, width=5, command=click)
+b1.grid(row=1, column=1,padx=5,pady=5)
+
+b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
+b2.grid(row=1, column=2,padx=5,pady=5)
+        
+# Text entry
+e1 = Entry(window, textvariable=guiout, width=50)
+e1.grid(row=1, column=0, sticky="ew",padx=5,pady=5)
 
 # Key bindings
 window.bind('<Return>', enter)
