@@ -13,4 +13,6 @@ the ip should start with 192.168
 
 now on your client computer
 
-put the local ip(the on you got throught hostname -I) in the clientside.py file code and run it, it will make a connection and you should be good to start messaging, if you want a terminal program just download clientside.py if you want a app with a ui just download clientside-gui.py each should run by itself with only default python libraries
+put the local ip(the on you got throught hostname -I) in the clientside.py file code and run it, it will make a connection and you should be good to start messaging
+
+if you want a terminal program just download clientside.py if you want a app with a ui just download clientside-gui.py each should run by itself with only default python libraries
