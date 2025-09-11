@@ -10,11 +10,14 @@ out = str()
 cwidth = str()
 cheight = str()
 chat_log = "" 
+passn=True
+change_check=str()
 
 
 # GUI setup
 window = Tk()
 guiout = StringVar()
+window.geometry("600x800+1520+480")
 
 
 def click():
@@ -78,30 +81,33 @@ def rec():
         conn.close()
 
 def update_window():
-    global message, cwidth, cheight, c1, chat_log
+    global message, cwidth, cheight, c1, chat_log, change_check
     cheight = window.winfo_height() - 50
     cwidth = window.winfo_width() - 15
-    c1 = Canvas(window, width=cwidth, height=cheight)
-    c1.place(x=0, y=30)
+    
+
+    if change_check != str(cwidth)+str(cheight):          
+        # Buttons
+        b1 = Button(window, text="send", height=1, width=5, command=click)
+        b1.grid(row=4, column=1)
+
+        b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
+        b2.grid(row=4, column=2)
+        
+        # Text entry
+        e1 = Entry(window, textvariable=guiout, width=50)
+        e1.grid(row=4, column=0, pady=cheight)
+        
+    else:
+        pass
+    change_check= str(cwidth)+str(cheight)
+
+    
+    c1 = Canvas(window, width=cwidth, height=cheight-35)
+    c1.place(x=0,y=0)
     c1.create_text(5, 5, anchor="nw", text=chat_log, fill="black", font=("Courier", 10), width=cwidth - 10)
     window.after(1000, update_window)
 
-# Start background receiver thread
-threading.Thread(target=rec, daemon=True).start()
-
-# GUI layout
-window.geometry("600x800+1520+480")
-
-# Buttons
-b1 = Button(window, text="send", height=1, width=5, command=click)
-b1.grid(row=0, column=1)
-
-b2 = Button(window, text="refresh", height=1, width=5, command=refreshtwo)
-b2.grid(row=0, column=2)
-
-# Text entry
-e1 = Entry(window, textvariable=guiout, width=50)
-e1.grid(row=0, column=0)
 
 # Key bindings
 window.bind('<Return>', enter)
