@@ -90,7 +90,7 @@ def rec():
         conn.close()
 
 def update_window():
-    global message, cwidth, cheight, c1, chat_log, change_check#z, send_error
+    global message, cwidth, cheight, c1, chat_log, change_check
     cheight = window.winfo_height() - 50
     cwidth = window.winfo_width() - 15
     
