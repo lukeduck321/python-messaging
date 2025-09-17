@@ -25,10 +25,10 @@ splash_screen.start_load()
 window = Tk()
 
 server_ip = StringVar()
-username =StringVar()
+username = StringVar()
 
 guiout = StringVar()
-window.geometry("600x800+1520+480")
+window.geometry("600x800")
 
 window.columnconfigure(0, weight=1)
 window.columnconfigure(1, weight=0)
@@ -43,6 +43,9 @@ try:
         if len(lines) >= 2:
             username.set(lines[0])
             server_ip.set(lines[1])
+
+            username = username.get()
+            server_ip = server_ip.get()
 except FileNotFoundError:
     pass 
 
@@ -66,8 +69,6 @@ def refresh(event):
 
 def send(server_ip, message):
     global out, chat_log, send_error
-
-    server_ip = str(server_ip)
     
     port = 12345
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
