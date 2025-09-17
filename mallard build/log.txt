@@ -1,2 +1,0 @@
-User2: HI
-User1: Hello
