@@ -8,6 +8,10 @@ def account_setup():
     username = StringVar()
     server_ip = StringVar()
 
+    setup_window.columnconfigure(0, weight=1)
+    setup_window.columnconfigure(1, weight=1)
+    setup_window.columnconfigure(2, weight=1)
+    
     try:
         with open("account/config.txt", "r") as f:
             lines = f.read().splitlines()
@@ -48,4 +52,4 @@ def account_setup():
 
     setup_window.mainloop()
 
-account_setup()
+

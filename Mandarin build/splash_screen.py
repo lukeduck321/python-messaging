@@ -9,14 +9,14 @@ load_graphic = None
 def start_load():
     load_window = Tk()
     load_window.geometry("595x425")
-    load_window.title("Loading...")
+    load_window.title("splash screen")
 
     
     load_graphic = PhotoImage(file=loading_image_path)
     label = Label(load_window, image=load_graphic)
     label.pack()
 
-    load_window.after(5000, load_window.destroy)
+    load_window.after(3000, load_window.destroy)
     
     load_window.mainloop()
 
