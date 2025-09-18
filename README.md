@@ -20,7 +20,7 @@ put the local ip(the on you got throught hostname -I) in the clientside.py file 
 
 if you want a terminal program just download clientside.py if you want a app with a ui just download clientside-gui.py each should run by itself with only default python libraries
 
-Mandarin build(not working yet, but has other features that makes it easier to use)
+Mandarin build(experemental with minimal testing, but has other features that makes it easier to use and visually appealing)
 
 download serverside.py on server and get ip
 
