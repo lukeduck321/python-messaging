@@ -59,15 +59,25 @@ bash
 # Replace with your server's IP from step 1
 
 # Run the GUI client
+
 python clientside-gui.py
+
 Project Structure
+
 text
+
 python-messaging/
+
 ├── serverside.py          # Server application
+
 ├── clientside.py          # Terminal-based client
+
 ├── clientside-gui.py      # GUI-based client
+
 ├── log.txt               # Message log file
+
 └── LICENSE               # MIT License
+
 Build Variants
 Build Name	Description	Status
 Mallard	Core functionality, optimized for low-power systems	Stable
