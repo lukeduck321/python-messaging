@@ -79,16 +79,26 @@ python-messaging/
 └── LICENSE               # MIT License
 
 Build Variants
-Build Name	Description	Status
+
+
 Mallard	Core functionality, optimized for low-power systems	Stable
+
 Mandarin	Experimental build with enhanced UI features	Beta
+
 Troubleshooting
+
 Issue	Solution
+
 Connection refused	Ensure server is running and IP is correct
+
 IP address not found	Verify devices are on same network
+
 Python not found	Check Python installation and PATH
+
 Port already in use	Restart server or change port in code
+
 Contributing
+
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 Fork the repository
