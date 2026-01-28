@@ -1,7 +1,7 @@
 Python Messaging Application
-https://img.shields.io/badge/Python-3.x-blue.svg
-https://img.shields.io/badge/License-MIT-green.svg
-https://img.shields.io/badge/Status-Active-brightgreen.svg
+!https://img.shields.io/badge/Python-3.x-blue.svg
+!https://img.shields.io/badge/License-MIT-green.svg
+!https://img.shields.io/badge/Status-Active-brightgreen.svg
 
 A lightweight, local network messaging system built with Python that provides both terminal-based and GUI client options. Perfect for secure internal communication within local networks.
 
